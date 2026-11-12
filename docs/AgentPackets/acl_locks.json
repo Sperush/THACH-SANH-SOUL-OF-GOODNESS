@@ -1,0 +1,235 @@
+{
+  "game_director": {
+    "title": "Game Director & Lead Systems Designer",
+    "model": "claude-opus",
+    "fallback_worker": "-",
+    "write_allow": [
+      "docs/gdd_core.md"
+    ],
+    "read_only": [
+      "docs/QA_Reports/"
+    ]
+  },
+  "art_director": {
+    "title": "Art Director",
+    "model": "claude-opus",
+    "fallback_worker": "-",
+    "write_allow": [
+      "docs/art_bible.md"
+    ],
+    "read_only": [
+      "docs/gdd_core.md",
+      "docs/QA_Reports/"
+    ]
+  },
+  "tech_art": {
+    "title": "Lead Technical Artist",
+    "model": "codex-6.1-sol",
+    "fallback_worker": "-",
+    "write_allow": [
+      "docs/art_tech_spec.json",
+      "Assets/Shaders/Core/"
+    ],
+    "read_only": [
+      "docs/art_bible.md",
+      "docs/Contracts/"
+    ]
+  },
+  "concept_art": {
+    "title": "Lead Concept Artist",
+    "model": "claude-opus",
+    "fallback_worker": "claude-sonnet",
+    "write_allow": [
+      "Assets/Art/Concepts/"
+    ],
+    "read_only": [
+      "docs/AgentPackets/pkt_concept_art.md",
+      "docs/art_bible.md",
+      "docs/gdd_core.md"
+    ]
+  },
+  "character_art": {
+    "title": "2D / 3D Character Artist",
+    "model": "claude-sonnet",
+    "fallback_worker": "codex-6.1-terra",
+    "write_allow": [
+      "Assets/Prefabs/Characters/",
+      "Assets/Art/Characters/"
+    ],
+    "read_only": [
+      "docs/AgentPackets/pkt_character_art.md",
+      "docs/art_bible.md",
+      "docs/art_tech_spec.json",
+      "docs/Contracts/",
+      "Assets/Blink/Art/",
+      "Assets/Lizard/Mesh/"
+    ]
+  },
+  "environment_art": {
+    "title": "Environment & Level Artist",
+    "model": "antigravity-carbon",
+    "fallback_worker": "codex-6.1-terra",
+    "write_allow": [
+      "Assets/Scenes/",
+      "Assets/Prefabs/Environments/"
+    ],
+    "read_only": [
+      "docs/AgentPackets/pkt_environment_art.md",
+      "docs/art_bible.md",
+      "docs/art_tech_spec.json",
+      "Assets/Nicrom/3D_HybridArt/",
+      "Assets/Santutu/Assets/"
+    ]
+  },
+  "texture_lighting": {
+    "title": "Texture, Material & Lighting Specialist",
+    "model": "claude-sonnet",
+    "fallback_worker": "codex-6.1-sol",
+    "write_allow": [
+      "Assets/Sprites/Materials/",
+      "Assets/Art/Materials/",
+      "Assets/Shaders/Surface/"
+    ],
+    "read_only": [
+      "docs/AgentPackets/pkt_texture_lighting.md",
+      "docs/art_bible.md",
+      "docs/art_tech_spec.json"
+    ]
+  },
+  "animation": {
+    "title": "2D / 3D Technical Animator",
+    "model": "codex-6.1-terra",
+    "fallback_worker": "antigravity-argon",
+    "write_allow": [
+      "Assets/Animations/"
+    ],
+    "read_only": [
+      "docs/AgentPackets/pkt_animation.md",
+      "docs/Contracts/",
+      "Assets/Blink/Art/",
+      "Assets/Lizard/Animation/",
+      "Assets/Lizard/Controller/"
+    ]
+  },
+  "vfx_art": {
+    "title": "VFX & Particle Specialist",
+    "model": "claude-sonnet",
+    "fallback_worker": "codex-5.6-luna",
+    "write_allow": [
+      "Assets/Prefabs/VFX/",
+      "Assets/Art/VFX/",
+      "Assets/Shaders/VFX/"
+    ],
+    "read_only": [
+      "docs/AgentPackets/pkt_vfx_art.md",
+      "docs/art_bible.md",
+      "docs/art_tech_spec.json",
+      "docs/Contracts/"
+    ]
+  },
+  "ui_ux_art": {
+    "title": "UI/UX Art & Layout Specialist",
+    "model": "claude-sonnet",
+    "fallback_worker": "-",
+    "write_allow": [
+      "Assets/Prefabs/UI/",
+      "Assets/Sprites/"
+    ],
+    "read_only": [
+      "docs/AgentPackets/pkt_ui_ux_art.md",
+      "docs/art_bible.md",
+      "docs/Contracts/",
+      "Assets/Sweet Land GUI/Prefabs/",
+      "Assets/Sweet Land GUI/Sprites/",
+      "Assets/Joystick Pack/Prefabs/"
+    ]
+  },
+  "engine_architect": {
+    "title": "Principal System & Engine Architect",
+    "model": "codex-6.1-astra",
+    "fallback_worker": "-",
+    "write_allow": [
+      "Assets/Scripts/Core/",
+      "docs/Contracts/"
+    ],
+    "read_only": [
+      "Assets/Scripts/ThachSanh/",
+      "Assets/Scripts/Boss/",
+      "docs/gdd_core.md"
+    ]
+  },
+  "core_gameplay": {
+    "title": "Core Gameplay & Physics Engineer",
+    "model": "codex-6.1-terra",
+    "fallback_worker": "antigravity-carbon",
+    "write_allow": [
+      "Assets/Scripts/ThachSanh/",
+      "Assets/Scripts/Boss/",
+      "Assets/Scripts/Gameplay/"
+    ],
+    "read_only": [
+      "docs/AgentPackets/pkt_core_gameplay.md",
+      "docs/Contracts/",
+      "Assets/Scripts/Core/",
+      "Assets/Joystick Pack/Scripts/"
+    ]
+  },
+  "sdk_tools": {
+    "title": "Tools, Save System & SDK Engineer",
+    "model": "antigravity-argon",
+    "fallback_worker": "codex-5.6-luna",
+    "write_allow": [
+      "Assets/Scripts/Services/",
+      "Assets/Scripts/Editor/"
+    ],
+    "read_only": [
+      "docs/AgentPackets/pkt_sdk_tools.md",
+      "docs/Contracts/",
+      "Assets/Scripts/Core/"
+    ]
+  },
+  "audio_tech": {
+    "title": "Technical Audio Integrator",
+    "model": "antigravity-argon",
+    "fallback_worker": "-",
+    "write_allow": [
+      "Assets/Audio/",
+      "Assets/Scripts/Audio/"
+    ],
+    "read_only": [
+      "docs/AgentPackets/pkt_audio_tech.md",
+      "docs/Contracts/",
+      "Assets/Scripts/Core/"
+    ]
+  },
+  "economy_level": {
+    "title": "Economy Mathematician & Level Designer",
+    "model": "codex-6.1-sol",
+    "fallback_worker": "codex-5.6-luna",
+    "write_allow": [
+      "Assets/Data/Configs/",
+      "docs/balance_sheets.md"
+    ],
+    "read_only": [
+      "docs/AgentPackets/pkt_economy_level.md",
+      "docs/gdd_core.md",
+      "docs/Contracts/"
+    ]
+  },
+  "flash_gatekeeper": {
+    "title": "Automated QA & Asset Gatekeeper",
+    "model": "3.8-flash",
+    "fallback_worker": "-",
+    "write_allow": [
+      "docs/QA_Reports/"
+    ],
+    "read_only": [
+      "docs/",
+      "Assets/Art/",
+      "Assets/Shaders/",
+      "Assets/UI/",
+      "Assets/Scripts/",
+      "Assets/Data/Configs/"
+    ]
+  }
+}

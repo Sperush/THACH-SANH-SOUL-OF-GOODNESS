@@ -1,0 +1,90 @@
+project:
+  name: "THACH-SANH-SOUL-OF-GOODNESS"
+  engine: "unity"
+  genre_profile: "3d-action-midcore"
+  budget_mode: "production_flagship"    # Đổi sang prototype_lean khi muốn tiết kiệm token
+
+tech_constraints:
+  target_platform: "mobile_pc_hybrid_60fps"
+  max_hero_tris: 15000
+  max_atlas_size: 2048
+  ui_reference_resolution: "1920x1080"
+
+# Khóa quyền Read/Write khớp chính xác với cây thư mục hiện có của đồ án:
+strict_acl_overrides:
+  engine_architect:
+    write_allow: ["Assets/Scripts/Core/", "docs/Contracts/"]
+    read_only: ["Assets/Scripts/ThachSanh/", "Assets/Scripts/Boss/", "docs/gdd_core.md"]
+
+  core_gameplay:
+    write_allow: ["Assets/Scripts/ThachSanh/", "Assets/Scripts/Boss/", "Assets/Scripts/Gameplay/"]
+    read_only:
+      - "docs/AgentPackets/pkt_core_gameplay.md"
+      - "docs/Contracts/"
+      - "Assets/Scripts/Core/"
+      - "Assets/Joystick Pack/Scripts/"
+
+  animation:
+    write_allow: ["Assets/Animations/"]
+    read_only:
+      - "docs/AgentPackets/pkt_animation.md"
+      - "docs/Contracts/"
+      - "Assets/Blink/Art/"
+      - "Assets/Lizard/Animation/"
+      - "Assets/Lizard/Controller/"
+
+  character_art:
+    write_allow: ["Assets/Prefabs/Characters/", "Assets/Art/Characters/"]
+    read_only:
+      - "docs/AgentPackets/pkt_character_art.md"
+      - "docs/art_bible.md"
+      - "docs/art_tech_spec.json"
+      - "docs/Contracts/"
+      - "Assets/Blink/Art/"
+      - "Assets/Lizard/Mesh/"
+
+  environment_art:
+    write_allow: ["Assets/Scenes/", "Assets/Prefabs/Environments/"]
+    read_only:
+      - "docs/AgentPackets/pkt_environment_art.md"
+      - "docs/art_bible.md"
+      - "docs/art_tech_spec.json"
+      - "Assets/Nicrom/3D_HybridArt/"
+      - "Assets/Santutu/Assets/"
+
+  texture_lighting:
+    write_allow: ["Assets/Sprites/Materials/", "Assets/Art/Materials/", "Assets/Shaders/Surface/"]
+    read_only:
+      - "docs/AgentPackets/pkt_texture_lighting.md"
+      - "docs/art_bible.md"
+      - "docs/art_tech_spec.json"
+
+  vfx_art:
+    write_allow: ["Assets/Prefabs/VFX/", "Assets/Art/VFX/", "Assets/Shaders/VFX/"]
+    read_only:
+      - "docs/AgentPackets/pkt_vfx_art.md"
+      - "docs/art_bible.md"
+      - "docs/art_tech_spec.json"
+      - "docs/Contracts/"
+
+  ui_ux_art:
+    write_allow: ["Assets/Prefabs/UI/", "Assets/Sprites/"]
+    read_only:
+      - "docs/AgentPackets/pkt_ui_ux_art.md"
+      - "docs/art_bible.md"
+      - "docs/Contracts/"
+      - "Assets/Sweet Land GUI/Prefabs/"
+      - "Assets/Sweet Land GUI/Sprites/"
+      - "Assets/Joystick Pack/Prefabs/"
+
+  audio_tech:
+    write_allow: ["Assets/Audio/", "Assets/Scripts/Audio/"]
+    read_only: ["docs/AgentPackets/pkt_audio_tech.md", "docs/Contracts/", "Assets/Scripts/Core/"]
+
+  sdk_tools:
+    write_allow: ["Assets/Scripts/Services/", "Assets/Scripts/Editor/"]
+    read_only: ["docs/AgentPackets/pkt_sdk_tools.md", "docs/Contracts/", "Assets/Scripts/Core/"]
+
+  economy_level:
+    write_allow: ["Assets/Data/Configs/", "docs/balance_sheets.md"]
+    read_only: ["docs/AgentPackets/pkt_economy_level.md", "docs/gdd_core.md", "docs/Contracts/"]

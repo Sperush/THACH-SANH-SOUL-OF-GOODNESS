@@ -1,0 +1,18 @@
+{
+  "feature_id": "hero_blade_dash",
+  "owner_architect": "@tech_bridge",
+  "shared_identifiers": {
+    "sockets": ["socket_weapon_r", "socket_chest_hit", "socket_foot_dust"],
+    "anim_triggers": ["Trig_DashStart", "Trig_DashImpact", "Bool_IsStunned"],
+    "anim_events_ms": {
+      "spawn_slash_vfx": 120,
+      "apply_hitbox_damage": 150,
+      "recovery_frame": 380
+    },
+    "ui_bindings": ["OnCooldownChanged(float ratio)", "OnComboCountUpdated(int count)"]
+  },
+  "budgets": {
+    "max_vfx_particles": 60,
+    "max_mesh_tris": 6500
+  }
+}
