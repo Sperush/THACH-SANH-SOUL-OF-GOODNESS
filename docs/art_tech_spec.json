@@ -1,0 +1,339 @@
+{
+  "schema_version": "1.0.0",
+  "project": "THACH-SANH-SOUL-OF-GOODNESS",
+  "owner_role": "tech_art",
+  "status": "draft_art_bible_aligned_pending_contract_validation",
+  "language": "vi",
+  "sources": {
+    "agent_packet": "docs/AgentPackets/pkt_tech_art.md",
+    "art_bible": {
+      "path": "docs/art_bible.md",
+      "status": "read_and_applied"
+    },
+    "contracts": {
+      "directory": "docs/Contracts/",
+      "status": "not_validated_no_specific_contract_assigned"
+    },
+    "authority": "Giới hạn từ agent_packet và định hướng từ art_bible là bắt buộc. Các ngân sách/cấu hình bổ sung được đánh dấu là đề xuất tech_art; tên rig/socket và Prefab chờ đối chiếu hợp đồng được chỉ định."
+  },
+  "target": {
+    "engine": "unity",
+    "performance_profile": "mobile_pc_hybrid_60fps",
+    "target_fps": 60,
+    "frame_budget_ms": 16.67,
+    "performance_acceptance": "Đo trên thiết bị đích thực tế; ngân sách asset không bảo đảm toàn cảnh đạt 60 FPS."
+  },
+  "geometry": {
+    "count_unit": "triangles_after_import",
+    "count_scope": "Cộng tất cả submesh và bộ phận hiển thị của cùng asset; không tính theo số polygon trong DCC.",
+    "main_character": {
+      "authority": "agent_packet",
+      "lod0_max_tris": 15000,
+      "lod1_max_tris": 7500,
+      "lod2_max_tris": 3750,
+      "budget_includes": ["body", "hair", "outfit", "equipped_weapons", "visible_accessories"]
+    },
+    "proposed_asset_budgets": {
+      "authority": "tech_art_proposal",
+      "boss_lod0_max_tris": 15000,
+      "enemy_lod0_max_tris": 8000,
+      "npc_lod0_max_tris": 6000,
+      "weapon_lod0_max_tris": 2000,
+      "large_environment_module_lod0_max_tris": 10000,
+      "medium_prop_lod0_max_tris": 3000,
+      "small_prop_lod0_max_tris": 1000,
+      "foliage_cluster_lod0_max_tris": 1500,
+      "note": "Vũ khí gắn trên nhân vật chính vẫn nằm trong trần tổng 15000 tris; mọi tăng ngân sách cần cập nhật đặc tả trước."
+    },
+    "lod": {
+      "authority": "agent_packet_for_ratios_tech_art_proposal_for_thresholds",
+      "triangle_ratios": [1.0, 0.5, 0.25],
+      "unity_lod_group_screen_relative_transition_heights": [0.6, 0.25, 0.05],
+      "below_last_threshold": "Cull prop và môi trường; nhân vật chính giữ LOD2 khi còn trong tầm nhìn gameplay.",
+      "requirements": [
+        "Không đổi tên xương hoặc socket giữa các LOD.",
+        "Giữ silhouette, UV atlas và material dùng chung giữa các LOD.",
+        "Asset nhỏ chỉ dùng một LOD cần ghi ngoại lệ trong hồ sơ asset."
+      ]
+    }
+  },
+  "textures": {
+    "atlas": {
+      "authority": "agent_packet_for_maximum_tech_art_proposal_for_other_settings",
+      "max_width_px": 2048,
+      "max_height_px": 2048,
+      "allowed_sizes_px": [256, 512, 1024, 2048],
+      "default_size_px": 1024,
+      "power_of_two_required": true,
+      "padding_at_base_mip_px": 8,
+      "edge_dilation_required": true,
+      "wrap_mode": "Clamp",
+      "grouping": "Gộp theo material, shader và nhóm asset thường xuất hiện cùng nhau; không gộp toàn dự án vào một atlas.",
+      "mip_note": "Kiểm tra bleeding ở khoảng cách xa; tăng padding hoặc tách atlas nếu mip thấp làm lẫn màu."
+    },
+    "maps": {
+      "base_color": { "suffix": "BC", "srgb": true },
+      "normal": { "suffix": "N", "srgb": false, "unity_texture_type": "NormalMap" },
+      "orm": {
+        "suffix": "ORM",
+        "srgb": false,
+        "channels": { "R": "occlusion", "G": "roughness", "B": "metallic", "A": "unused_default_1" },
+        "smoothness_conversion": "smoothness = 1 - roughness",
+        "integration": "Master Shader đọc ORM trực tiếp. Nếu dùng Unity Lit/Standard, phải chuyển ORM sang đúng các texture/slot occlusion và metallic-smoothness của shader; không gán ORM trực tiếp vào metallic map."
+      },
+      "emission": { "suffix": "E", "srgb": true, "optional": true }
+    },
+    "import_defaults": {
+      "mipmaps_for_3d": true,
+      "filter_mode": "Bilinear",
+      "read_write_enabled": false,
+      "alpha": "Chỉ giữ alpha khi material cần; không bật transparency chỉ vì texture có kênh alpha.",
+      "ui_exception": "UI không tự động áp dụng atlas 3D; mipmap và padding cần kiểm tra theo cách hiển thị thực tế."
+    },
+    "platform_compression": {
+      "mobile_preferred": { "format": "ASTC", "default_block": "6x6", "hero_or_normal_detail_block": "4x4", "condition": "Thiết bị/API hỗ trợ ASTC." },
+      "mobile_fallback": { "format": "ETC2", "condition": "Thiết bị/API hỗ trợ ETC2; chọn RGB hoặc RGBA theo nhu cầu alpha." },
+      "pc": { "format": "BC7", "condition": "GPU/API hỗ trợ BC7; normal map dùng định dạng phù hợp như BC5 khi pipeline/importer yêu cầu." },
+      "validation": "Kiểm tra định dạng thực tế sau import/build, chất lượng normal/alpha và mức dùng bộ nhớ trên từng nền tảng."
+    }
+  },
+  "rendering": {
+    "authority": "tech_art_proposal",
+    "pipeline_selection_status": "unverified_project_settings_not_read",
+    "preferred_pipeline": "URP",
+    "rule": "Chọn một pipeline cho mỗi cấu hình build; material URP và Built-in không thay thế trực tiếp cho nhau.",
+    "urp": {
+      "master_shader_directory": "Assets/Shaders/Core/",
+      "shader_name_prefix": "ThachSanh/Core/URP/",
+      "fallback_shader": "Universal Render Pipeline/Lit",
+      "render_path": "Forward",
+      "srp_batcher_enabled": true,
+      "main_light": "Một Directional Light có shadow.",
+      "additional_lights_mobile": "Per Vertex; tắt shadow cho additional lights.",
+      "additional_lights_pc": "Per Pixel chỉ khi profiling cho phép; mặc định tắt shadow cho additional lights.",
+      "mobile_shadow_distance_m": 30,
+      "pc_shadow_distance_m": 60,
+      "shadow_cascades": 2,
+      "mobile_hdr_enabled": true,
+      "pc_hdr_enabled": true,
+      "msaa_samples": 2,
+      "depth_texture": "Chỉ bật khi hiệu ứng được duyệt cần.",
+      "opaque_texture": "Chỉ bật khi hiệu ứng được duyệt cần.",
+      "compatibility": "Chốt phiên bản Unity/URP trước khi triển khai; xác minh tên thuộc tính và khả năng hỗ trợ trong phiên bản thực tế."
+    },
+    "built_in": {
+      "usage": "Cấu hình dự phòng khi dự án chọn Built-in.",
+      "shader_name_prefix": "ThachSanh/Core/BuiltIn/",
+      "fallback_shader": "Standard",
+      "render_path": "Forward",
+      "srp_batcher_available": false,
+      "pixel_light_count_mobile": 1,
+      "pixel_light_count_pc": 4,
+      "mobile_shadow_distance_m": 30,
+      "pc_shadow_distance_m": 60,
+      "shadow_cascades": 2,
+      "mobile_hdr_enabled": true,
+      "pc_hdr_enabled": true,
+      "msaa_samples": 2,
+      "lighting": "Ưu tiên baked lighting cho môi trường tĩnh, light probes cho vật thể động."
+    },
+    "materials": {
+      "default_surface": "Opaque",
+      "alpha_clip": "Dùng cho foliage/cutout khi cần; kiểm tra overdraw.",
+      "transparent": "Chỉ dùng cho VFX hoặc bề mặt thật sự cần blending.",
+      "proposed_max_material_slots": { "main_character": 2, "enemy_or_npc": 2, "environment_module_or_prop": 1 },
+      "shared_materials_required": true
+    },
+    "batching": {
+      "srp_batcher": "URP: shader tương thích SRP Batcher, bố trí thuộc tính material trong UnityPerMaterial CBUFFER; xác minh bằng Inspector/Frame Debugger. SRP Batcher giảm chi phí thiết lập, không tự gộp draw calls.",
+      "gpu_instancing": "Dùng cho mesh lặp lại có cùng mesh/material và shader hỗ trợ instancing; kiểm tra đường render thực tế. Không giả định MeshRenderer instancing áp dụng cho SkinnedMeshRenderer.",
+      "priority": "SRP Batcher và GPU Instancing là các đường tối ưu cần đo riêng; không giả định cùng áp dụng cho một draw. Tránh MaterialPropertyBlock khi cần giữ tương thích SRP Batcher.",
+      "atlas_batching": "Atlas giúp dùng chung material; vẫn cần điều kiện mesh/render state phù hợp để giảm draw calls.",
+      "static_batching": "Chỉ bật cho môi trường thật sự tĩnh sau khi cân đối bộ nhớ.",
+      "validation": "Dùng Unity Profiler và Frame Debugger trên cảnh gameplay đại diện cho mobile và PC."
+    },
+    "shader_variants": {
+      "independent_art_branch_shaders_allowed": false,
+      "ownership": "tech_art duy trì Master Shader tại Assets/Shaders/Core/; các nhánh Art dùng material của shader được duyệt.",
+      "rules": [
+        "Không sao chép shader thành shader riêng cho từng asset.",
+        "Tái sử dụng shader và material; dùng tham số cho khác biệt thuần giá trị.",
+        "Giới hạn keyword; ưu tiên local shader features cho tính năng material khi phù hợp.",
+        "Strip biến thể không dùng theo pipeline/nền tảng; giữ và kiểm tra biến thể cần cho hiệu ứng runtime trong player build."
+      ]
+    }
+  },
+  "art_bible_requirements": {
+    "authority": "docs/art_bible.md",
+    "style": "Stylized Semi-Realistic Vietnamese Mythic Action",
+    "palette": {
+      "dominant_environment_ratio": 0.6,
+      "secondary_structure_ratio": 0.3,
+      "interaction_vfx_accent_ratio": 0.1,
+      "colors": {
+        "deep_jungle_moss": "#2D4A3E",
+        "ancient_basalt": "#3A3F47",
+        "misty_twilight": "#6E8894",
+        "warm_terracotta": "#8C4A27",
+        "aged_bronze": "#B8863B",
+        "lizard_indigo": "#4A6B53",
+        "goodness_gold": "#FFD147",
+        "jade_soul_cyan": "#3CE8B5",
+        "malice_crimson": "#E62E3D"
+      }
+    },
+    "geometry_and_readability": {
+      "hero_shape": "Khối vuông/chữ V, vai rộng, thế đứng vững.",
+      "hero_armor_and_axe_bevel_m": [0.02, 0.04],
+      "enemy_shape": "Tam giác nhọn, gai góc, bất đối xứng.",
+      "exploration_camera_distance_m": [4.5, 6.0],
+      "boss_camera_distance_m": [6.5, 8.5],
+      "camera_downward_angle_degrees": [15, 22],
+      "detail_policy": "Ưu tiên medium/macro detail; giảm micro-noise. Kiểm tra silhouette, bevel và LOD ở cả hai dải camera trong ngân sách tris đã quy định.",
+      "depth_hierarchy": {
+        "gameplay_saturation_percent": [85, 100],
+        "environment_saturation_percent": [50, 70],
+        "environment_value_percent": [35, 60],
+        "backdrop_saturation_percent": [20, 40],
+        "distance_fog_color": "#6E8894"
+      }
+    },
+    "material_harmonization": {
+      "shared_workflow": "PBR Stylized Unified; roughness lưu trong ORM.G, smoothness của các preset bên dưới được chuyển thành roughness = 1 - smoothness.",
+      "blink": {
+        "role": "Chuẩn gốc cho nhân vật; giảm nhiễu hạt vải/da.",
+        "skin_and_cloth_metallic": 0.0,
+        "axe_and_bronze_metallic": 0.85,
+        "bronze_color": "#B8863B",
+        "skin_smoothness": 0.35,
+        "cloth_smoothness": [0.15, 0.25],
+        "metal_smoothness": [0.65, 0.75]
+      },
+      "lizard": {
+        "tint": "#4A6B53",
+        "alternative_tint": "Nâu đá, cần art_director duyệt màu cụ thể.",
+        "normal_scale": [0.7, 0.85],
+        "smoothness": [0.45, 0.6],
+        "rim": "Fresnel Rim Light mỏng, giữ silhouette rõ trong hang tối.",
+        "enraged_emission_color": "#E62E3D",
+        "emission_mask_scope": "Mắt/vết nứt khi Cuồng Nộ; không phát sáng toàn thân."
+      },
+      "nicrom": {
+        "environment_shader_features": ["triplanar_mapping", "vertex_color_blending", "soft_shadows"],
+        "rock_and_wood_smoothness": [0.15, 0.25],
+        "grass_and_leaf_smoothness": 0.2,
+        "foliage_fake_subsurface_color": "#4F7A42",
+        "foliage_fake_subsurface_strength": "Nhẹ; chưa có giá trị số trong Art Bible."
+      },
+      "santutu": {
+        "albedo_value_percent": [30, 70],
+        "albedo_luminance": [0.18, 0.75],
+        "measurement_note": "Value và luminance là hai tiêu chí riêng trong Art Bible; không coi là cùng một đại lượng. Cần chốt phương pháp đo trước khi tự động hóa gate.",
+        "avoid_albedo_extremes": ["#FFFFFF", "#000000"],
+        "base_moss_color": "#2D4A3E",
+        "occlusion_strength": [0.6, 0.8]
+      }
+    },
+    "lighting": {
+      "day_forest": {
+        "directional_color": "#FFF1D6",
+        "intensity": [1.2, 1.5],
+        "angle_degrees": [35, 50],
+        "shadow_strength": 0.75,
+        "soft_shadows": true
+      },
+      "cave_boss_arena": {
+        "directional_color": "#8CA8BE",
+        "intensity": [0.6, 0.8],
+        "torch_point_light_color": "#FF7A29",
+        "max_realtime_lights_in_frame": 4,
+        "budget_interpretation": "Tính cả Directional Light nếu realtime; đây là trần tổng theo khung hình, không phải số light cho mỗi object."
+      },
+      "ambient_gradient": {
+        "sky": "#6E8894",
+        "equator": "#3D4E48",
+        "ground": "#222629"
+      }
+    },
+    "post_processing": {
+      "tonemapping": "ACES",
+      "bloom": { "threshold": 1.1, "intensity": 0.35, "scatter": 0.6 },
+      "bloom_allowed_sources": ["VFX", "charged_axe_blade", "boss_eyes"],
+      "color_grading": {
+        "contrast": 10,
+        "saturation": 5,
+        "highlights_tint": "Ấm nhẹ",
+        "shadows_tint": "Lạnh nhẹ"
+      },
+      "pipeline_mapping": "Các giá trị là chuẩn hình ảnh. Đối chiếu phiên bản URP hoặc post-processing stack Built-in trước khi triển khai; không giả định Bloom Scatter có tham số tương đương trực tiếp ở Built-in.",
+      "mobile_quality_policy": "Đề xuất tech_art: giữ HDR để đáp ứng emission/Bloom; đo GPU và bộ nhớ trên thiết bị đích. Mọi giảm chất lượng làm thay đổi chuẩn hình ảnh phải được art_director duyệt."
+    },
+    "master_shader_implementation_requirements": {
+      "status": "specified_not_implemented_by_this_json",
+      "common": ["ORM sampling", "normal strength", "masked emission"],
+      "character": ["thin Fresnel rim"],
+      "environment": ["triplanar mapping", "vertex color blending", "moss blending"],
+      "foliage": ["lightweight fake subsurface scattering"],
+      "variant_policy": "Tính năng nằm trong các Master Shader do tech_art quản lý, bật theo material và nhu cầu thực tế; không tạo shader riêng theo gói asset hoặc bật mọi tính năng trên mọi material."
+    },
+    "ui_technical_constraints": {
+      "combat_hud_max_screen_area_ratio": 0.12,
+      "reference_resolution_height_px": 1080,
+      "hud_background": "#1C2026",
+      "hud_background_alpha": 0.8,
+      "border_color": "#B8863B",
+      "border_width_at_reference_px": 2,
+      "body_font_min_size_at_reference_px": 18,
+      "vietnamese_diacritics_required": true,
+      "ownership_note": "Chỉ ghi ràng buộc kỹ thuật; asset UI thuộc vai ui_ux_art."
+    }
+  },
+  "naming": {
+    "authority": "agent_packet_for_asset_prefixes_tech_art_proposal_for_prefabs_and_patterns",
+    "character_set": "ASCII letters, digits, underscore; no spaces or Vietnamese diacritics",
+    "asset_pattern": "<Prefix><Category>_<Name>_<Variant>[_LOD<n>][_<Map>]",
+    "prefixes": {
+      "texture": "T_",
+      "material": "M_",
+      "static_mesh": "SM_",
+      "skinned_mesh": "SK_",
+      "vfx_asset": "VFX_",
+      "ui_asset": "UI_"
+    },
+    "prefab_pattern": "PF_<Type>_<Name>_<Variant>",
+    "prefab_prefixes": {
+      "character": "PF_CH_",
+      "enemy": "PF_EN_",
+      "boss": "PF_BOSS_",
+      "environment": "PF_ENV_",
+      "prop": "PF_PROP_",
+      "weapon": "PF_WPN_",
+      "vfx": "PF_VFX_",
+      "ui": "PF_UI_"
+    },
+    "rig": {
+      "bone_prefix": "bone_",
+      "socket_prefix": "socket_",
+      "contract_alignment_status": "pending",
+      "rule": "Tên đầy đủ và chữ hoa/thường của xương/socket phải trùng hợp đồng được chỉ định; chưa tự chốt tên socket cụ thể hoặc đổi rig trước khi đối chiếu."
+    },
+    "examples": [
+      "SK_CH_ThachSanh_Default_LOD0",
+      "SM_PROP_Rock_A_LOD1",
+      "T_CH_ThachSanh_Default_ORM",
+      "M_CH_ThachSanh_Default",
+      "PF_CH_ThachSanh_Default",
+      "PF_ENV_BanyanTree_A",
+      "PF_VFX_AxeImpact_A"
+    ]
+  },
+  "acceptance_checks": [
+    "Kiểm tra trực quan palette 60/30/10, silhouette, vật liệu bốn gói asset và LOD ở dải camera quy định trong Art Bible.",
+    "Kiểm tra preset ánh sáng, ACES/Bloom, HDR, emission mask và trần 4 realtime lights trong khung hình hang/Boss Arena.",
+    "Chỉ định hợp đồng trong docs/Contracts/ rồi xác minh tên bone/socket và tiền tố Prefab với các vai liên quan.",
+    "Đếm tris sau import, cộng đủ các bộ phận hiển thị và kiểm tra LOD 100%/50%/25%.",
+    "Không atlas nào vượt 2048 ở mỗi chiều; kiểm tra padding, mip bleeding, color space và ORM.",
+    "Kiểm tra texture compression trong build mobile/PC và shader đúng pipeline đã chọn.",
+    "Đo frame time, draw calls, overdraw và bộ nhớ trên thiết bị đích; kiểm tra batching và biến thể shader trong player build."
+  ]
+}

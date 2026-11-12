@@ -1,0 +1,1711 @@
+{
+  "schema_version": "1.0.0",
+  "role": "engine_architect",
+  "created_date": "2026-11-12",
+  "project_root": "D:\\ProjectLearn3D\\DoAnTotNghiep\\THACH-SANH-SOUL-OF-GOODNESS",
+  "scope": {
+    "packet_read": "docs/AgentPackets/pkt_engine_architect.md",
+    "source_roots_read": [
+      "Assets/Scripts/ThachSanh/",
+      "Assets/Scripts/Boss/"
+    ],
+    "source_filter": "**/*.cs",
+    "source_file_count": 7,
+    "boss_directory_exists": true,
+    "boss_source_file_count": 0,
+    "excluded": "Không đọc gdd_core, C# ngoài hai thư mục, scene, prefab, AnimatorController hoặc animation clip; không quét thư mục khác.",
+    "limitations": [
+      "Không có nguồn Boss trong thư mục được phép: BossLizard chỉ được biết từ các điểm tham chiếu.",
+      "Không suy diễn Boss -> player, danh sách tham số Animator của Boss, hoặc Animation Events được gắn trong clip.",
+      "Initializer là giá trị trong code; giá trị serialize thực trong Inspector chưa được kiểm tra.",
+      "Không chạy game hoặc biên dịch; phân tích tĩnh các file trong phạm vi."
+    ]
+  },
+  "source_files": [
+    {
+      "path": "Assets/Scripts/ThachSanh/AxeAttack.cs",
+      "sha256": "d7c7509ba62e7696c5cdb52c7b855fe85a13b7d617ede9329f5c265b424334c6",
+      "line_count": 26
+    },
+    {
+      "path": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+      "sha256": "456f3a424569c3e1ed3d56ebdae813d57632f3d3cc9c7df5c00e91202b9e3dc7",
+      "line_count": 116
+    },
+    {
+      "path": "Assets/Scripts/ThachSanh/DivineRice.cs",
+      "sha256": "ca052dc21c2f5ac177dc3fcf815793d735a6950610e7f77c408f2e23a5b21385",
+      "line_count": 17
+    },
+    {
+      "path": "Assets/Scripts/ThachSanh/Inventory.cs",
+      "sha256": "b021ee5f9eb83f85f9ad610b0e1617ca2a400b19f73f954f5f9bcce21f3f2f11",
+      "line_count": 222
+    },
+    {
+      "path": "Assets/Scripts/ThachSanh/PlayerController.cs",
+      "sha256": "2efb26ea32ce3ac8716b35c9db79e5d9e9adc5221c104de25d9d1f16fc3bd30e",
+      "line_count": 114
+    },
+    {
+      "path": "Assets/Scripts/ThachSanh/PlayerHealth.cs",
+      "sha256": "c6ea3167247879e70d09d1f2f3a65aef81d4b90baec7c51d76e6474773cfb85d",
+      "line_count": 65
+    },
+    {
+      "path": "Assets/Scripts/ThachSanh/SoulMeter.cs",
+      "sha256": "6712a9b167cdbd3b22aaff83dc578cc5239df6891822babfd3071995c73e95a5",
+      "line_count": 23
+    }
+  ],
+  "classes": [
+    {
+      "name": "AxeAttack",
+      "file": "Assets/Scripts/ThachSanh/AxeAttack.cs",
+      "line": 5,
+      "base_type": "MonoBehaviour",
+      "role": "Hitbox kỹ năng: gây sát thương và ghi trạng thái cho EnemyHealth/BossLizard khi Animator mang tag AttackSkill.",
+      "public_fields": [
+        {
+          "name": "damage",
+          "type": "int",
+          "line": 7,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "isStun",
+          "type": "bool",
+          "line": 8,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "combat",
+          "type": "CombatPhaseManager",
+          "line": 9,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        }
+      ],
+      "serialize_field_private_fields": [],
+      "public_methods": [],
+      "public_events": []
+    },
+    {
+      "name": "CombatPhaseManager",
+      "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+      "line": 5,
+      "base_type": "MonoBehaviour",
+      "role": "Điều phối đánh thường/combo/kỹ năng; xử lý bộ đếm stun của PlayerHealth; cập nhật Animator.",
+      "public_fields": [
+        {
+          "name": "inventory",
+          "type": "Inventory",
+          "line": 7,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "animator",
+          "type": "Animator",
+          "line": 8,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "playerHealth",
+          "type": "PlayerHealth",
+          "line": 9,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "btnSkill3",
+          "type": "Button",
+          "line": 10,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "axeAttack",
+          "type": "AxeAttack",
+          "line": 11,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "attackOrigin",
+          "type": "Transform",
+          "line": 13,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "attackRange",
+          "type": "float",
+          "line": 14,
+          "initializer": "2f",
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "enemyLayer",
+          "type": "LayerMask",
+          "line": 15,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "maxCombo",
+          "type": "int",
+          "line": 18,
+          "initializer": "4",
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        }
+      ],
+      "serialize_field_private_fields": [],
+      "public_methods": [
+        {
+          "signature": "void PerformAttack()",
+          "line": 41
+        },
+        {
+          "signature": "void UseSkillAttack(int idx)",
+          "line": 74
+        },
+        {
+          "signature": "void UseSkillSurvival(int idx)",
+          "line": 95
+        }
+      ],
+      "public_events": []
+    },
+    {
+      "name": "DivineRice",
+      "file": "Assets/Scripts/ThachSanh/DivineRice.cs",
+      "line": 5,
+      "base_type": "MonoBehaviour",
+      "role": "Vật phẩm hồi máu; tìm trực tiếp PlayerHealth trên target.",
+      "public_fields": [
+        {
+          "name": "healAmount",
+          "type": "float",
+          "line": 7,
+          "initializer": "30f",
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        }
+      ],
+      "serialize_field_private_fields": [],
+      "public_methods": [
+        {
+          "signature": "void Use(GameObject target)",
+          "line": 10
+        }
+      ],
+      "public_events": []
+    },
+    {
+      "name": "ItemUI",
+      "file": "Assets/Scripts/ThachSanh/Inventory.cs",
+      "line": 7,
+      "base_type": null,
+      "role": "Dữ liệu serializable chứa Image và TMP_Text cho một ô vật phẩm.",
+      "public_fields": [
+        {
+          "name": "image",
+          "type": "Image",
+          "line": 9,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "quantity",
+          "type": "TMP_Text",
+          "line": 10,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        }
+      ],
+      "serialize_field_private_fields": [],
+      "public_methods": [],
+      "public_events": []
+    },
+    {
+      "name": "Inventory",
+      "file": "Assets/Scripts/ThachSanh/Inventory.cs",
+      "line": 12,
+      "base_type": "MonoBehaviour",
+      "role": "Túi đồ, chọn trang bị, UI và nhặt vật phẩm; bật/tắt GameObject vũ khí và thanh kỹ năng.",
+      "public_fields": [
+        {
+          "name": "animator",
+          "type": "Animator",
+          "line": 14,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "Weapons",
+          "type": "GameObject[]",
+          "line": 15,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "BtnLoot",
+          "type": "GameObject",
+          "line": 16,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "skill",
+          "type": "GameObject",
+          "line": 17,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "openBag",
+          "type": "GameObject",
+          "line": 18,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "BtnOpenBag",
+          "type": "GameObject",
+          "line": 19,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "ItemHand",
+          "type": "List<ItemUI>",
+          "line": 20,
+          "initializer": "new List<ItemUI>()",
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "ItemBag",
+          "type": "List<ItemUI>",
+          "line": 21,
+          "initializer": "new List<ItemUI>()",
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "bag",
+          "type": "List<Item>",
+          "line": 22,
+          "initializer": "new List<Item>()",
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        }
+      ],
+      "serialize_field_private_fields": [],
+      "public_methods": [
+        {
+          "signature": "bool AddItem(Item it)",
+          "line": 67
+        },
+        {
+          "signature": "void SubItem(Item it)",
+          "line": 88
+        },
+        {
+          "signature": "void ChangeStatusBag(GameObject btn)",
+          "line": 107
+        },
+        {
+          "signature": "void LoadHandBar(int sz)",
+          "line": 115
+        },
+        {
+          "signature": "void LoadBag(bool isOpen)",
+          "line": 127
+        },
+        {
+          "signature": "void SelectItemBar(int index)",
+          "line": 149
+        },
+        {
+          "signature": "Item GetItem(Item it)",
+          "line": 183
+        },
+        {
+          "signature": "int GetIndexItem(Item it)",
+          "line": 187
+        },
+        {
+          "signature": "void LootItem()",
+          "line": 208
+        },
+        {
+          "signature": "bool isUseWeapons()",
+          "line": 218
+        }
+      ],
+      "public_events": []
+    },
+    {
+      "name": "PlayerController",
+      "file": "Assets/Scripts/ThachSanh/PlayerController.cs",
+      "line": 4,
+      "base_type": "MonoBehaviour",
+      "role": "Di chuyển, xoay theo camera hoặc lockTarget, trọng lực và nhảy bằng CharacterController.",
+      "public_fields": [
+        {
+          "name": "joystick",
+          "type": "FloatingJoystick",
+          "line": 7,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "moveSpeed",
+          "type": "float",
+          "line": 8,
+          "initializer": "4f",
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "rotationSpeed",
+          "type": "float",
+          "line": 9,
+          "initializer": "10f",
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "gravity",
+          "type": "float",
+          "line": 10,
+          "initializer": "-9.81f",
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "jumpForce",
+          "type": "float",
+          "line": 11,
+          "initializer": "5f",
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "animator",
+          "type": "Animator",
+          "line": 14,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "lockTarget",
+          "type": "Transform",
+          "line": 15,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        }
+      ],
+      "serialize_field_private_fields": [],
+      "public_methods": [
+        {
+          "signature": "void Jump()",
+          "line": 106
+        }
+      ],
+      "public_events": []
+    },
+    {
+      "name": "PlayerHealth",
+      "file": "Assets/Scripts/ThachSanh/PlayerHealth.cs",
+      "line": 6,
+      "base_type": "MonoBehaviour",
+      "role": "Máu, cờ chết/stun, UI máu, trigger phản ứng và tải lại scene Game sau khi chết.",
+      "public_fields": [
+        {
+          "name": "fillImage",
+          "type": "Image",
+          "line": 8,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "maxHealth",
+          "type": "float",
+          "line": 9,
+          "initializer": "100",
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "currentHealth",
+          "type": "float",
+          "line": 10,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "isDie",
+          "type": "bool",
+          "line": 11,
+          "initializer": "false",
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "isStun",
+          "type": "bool",
+          "line": 12,
+          "initializer": null,
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        },
+        {
+          "name": "TimeStun",
+          "type": "float",
+          "line": 13,
+          "initializer": "1.5f",
+          "attributes": [],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        }
+      ],
+      "serialize_field_private_fields": [],
+      "public_methods": [
+        {
+          "signature": "void Heal(float amount)",
+          "line": 26
+        },
+        {
+          "signature": "void TakeDamage(float dmg)",
+          "line": 34
+        },
+        {
+          "signature": "void SetHP(float value)",
+          "line": 43
+        }
+      ],
+      "public_events": []
+    },
+    {
+      "name": "SoulMeter",
+      "file": "Assets/Scripts/ThachSanh/SoulMeter.cs",
+      "line": 5,
+      "base_type": "MonoBehaviour",
+      "role": "Giá trị linh hồn 0..100 và thông báo C# OnValueChanged.",
+      "public_fields": [
+        {
+          "name": "value",
+          "type": "float",
+          "line": 7,
+          "initializer": "100f",
+          "attributes": [
+            "Range(0, 100)"
+          ],
+          "serialization": "public field; giá trị scene/prefab không được kiểm tra"
+        }
+      ],
+      "serialize_field_private_fields": [],
+      "public_methods": [
+        {
+          "signature": "void Increase(float amount)",
+          "line": 11
+        },
+        {
+          "signature": "void Decrease(float amount)",
+          "line": 18
+        }
+      ],
+      "public_events": [
+        {
+          "declaration": "Action<float> OnValueChanged",
+          "line": 8,
+          "kind": "C# event; không phải Animation Event"
+        }
+      ]
+    }
+  ],
+  "external_types_not_inspected": [
+    {
+      "name": "BossLizard",
+      "observed_members": [
+        "TakeDamage(damage)",
+        "isStun = bool"
+      ],
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+          "lines": [
+            56,
+            58,
+            59
+          ]
+        },
+        {
+          "file": "Assets/Scripts/ThachSanh/AxeAttack.cs",
+          "lines": [
+            21,
+            22,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "name": "EnemyHealth",
+      "observed_members": [
+        "TakeDamage(damage)",
+        "isStun = bool"
+      ],
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+          "lines": [
+            51,
+            53,
+            54
+          ]
+        },
+        {
+          "file": "Assets/Scripts/ThachSanh/AxeAttack.cs",
+          "lines": [
+            15,
+            16,
+            17
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Item / ItemName",
+      "observed_members": [
+        "name",
+        "quantity",
+        "img",
+        "isWeapons()",
+        "CountBreak",
+        "Spawn()",
+        "ItemName.Axe"
+      ],
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/Inventory.cs",
+          "lines": [
+            42,
+            43,
+            69,
+            72,
+            121,
+            122
+          ]
+        },
+        {
+          "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+          "lines": [
+            61,
+            63,
+            64
+          ]
+        }
+      ]
+    },
+    {
+      "name": "FloatingJoystick",
+      "observed_members": [
+        "Horizontal",
+        "Vertical"
+      ],
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/PlayerController.cs",
+          "lines": [
+            7,
+            47,
+            48
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bag.Swap extension/implementation unresolved",
+      "observed_members": [
+        "Swap(lastIndex, index)"
+      ],
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/Inventory.cs",
+          "lines": [
+            163
+          ]
+        }
+      ]
+    }
+  ],
+  "call_flows": [
+    {
+      "id": "normal_attack",
+      "entry": "CombatPhaseManager.PerformAttack()",
+      "steps": [
+        "Chặn nếu layer 1 tag Attack, layer 0 tag AttackSkill hoặc state Gathering.",
+        "Reset comboStep về 0 khi >= maxCombo; Physics.OverlapSphere(attackOrigin.position, attackRange, enemyLayer).",
+        "isFinnal = comboStep == 3; Inventory.isUseWeapons() trả về trạng thái chọn vũ khí.",
+        "Ưu tiên EnemyHealth trên collider; nếu không có thì tìm BossLizard trên hit.transform.parent; nếu không có thì Item trên collider khi đang dùng vũ khí.",
+        "Enemy/Boss: TakeDamage(isFinnal ? 50 : isWeapon ? 10 : 5), sau đó ghi trực tiếp isStun = isFinnal.",
+        "Item: giảm CountBreak; <= 0 gọi Spawn().",
+        "Chỉ tăng comboStep khi có Enemy/Boss trúng và đang dùng vũ khí; SetInteger AttackIndex rồi SetTrigger Attack."
+      ],
+      "damage_timing": "Gây sát thương ngay trong PerformAttack trước trigger; không đợi Animation Event trong code đã đọc.",
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+          "lines": [
+            41,
+            43,
+            44,
+            46,
+            47,
+            48,
+            51,
+            53,
+            54,
+            56,
+            58,
+            59,
+            61,
+            64,
+            67,
+            69,
+            71,
+            72
+          ]
+        },
+        {
+          "file": "Assets/Scripts/ThachSanh/Inventory.cs",
+          "lines": [
+            218,
+            220
+          ]
+        }
+      ]
+    },
+    {
+      "id": "skill_attack",
+      "entry": "CombatPhaseManager.UseSkillAttack(int idx)",
+      "steps": [
+        "Chặn nếu layer 0 tag AttackSkill.",
+        "idx 0 -> isAttackSkill1, damage 50; idx 1 -> isAttackSkill2, damage 20; idx 2 -> isAttackSkill3, damage 100.",
+        "Ghi AxeAttack.damage; idx ngoài 0..2 vẫn gán damage 10 nhưng không phát trigger.",
+        "Unity physics gọi AxeAttack.OnTriggerEnter; chỉ xử lý khi combat.animator layer 0 tag AttackSkill.",
+        "Tag Enemy -> other.GetComponent<EnemyHealth>(); tag Boss -> other.GetComponentInParent<BossLizard>().",
+        "Gọi TakeDamage(damage), sau đó ghi isStun = AxeAttack.isStun; không thấy code bật/tắt hitbox hoặc chống trúng lặp theo đòn."
+      ],
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+          "lines": [
+            74,
+            76,
+            77,
+            80,
+            82,
+            84,
+            86,
+            88,
+            90,
+            93
+          ]
+        },
+        {
+          "file": "Assets/Scripts/ThachSanh/AxeAttack.cs",
+          "lines": [
+            10,
+            12,
+            13,
+            15,
+            16,
+            17,
+            19,
+            21,
+            22,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "id": "boss_to_player",
+      "entry": null,
+      "status": "unverified",
+      "steps": [
+        "Không có file .cs trong Assets/Scripts/Boss; không xác minh được caller từ Boss vào PlayerHealth.TakeDamage hoặc nơi Boss bật isStun của player."
+      ],
+      "known_player_endpoint": "PlayerHealth.TakeDamage(float dmg)",
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/PlayerHealth.cs",
+          "lines": [
+            34,
+            36,
+            37,
+            38,
+            39,
+            40
+          ]
+        }
+      ]
+    },
+    {
+      "id": "damage_and_death",
+      "entry": "PlayerHealth.TakeDamage(float dmg)",
+      "steps": [
+        "Bỏ qua khi isDie; trừ máu; SetHP clamp 0..maxHealth và đổi chiều rộng fillImage.",
+        "Trigger_GetHit; currentHealth <= 0 -> Die: isDie=true, Trigger_Death, StartCoroutine(Restart).",
+        "Restart đợi 4 giây rồi SceneManager.LoadScene(\"Game\")."
+      ],
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/PlayerHealth.cs",
+          "lines": [
+            34,
+            36,
+            37,
+            38,
+            39,
+            40,
+            43,
+            45,
+            49,
+            54,
+            56,
+            57,
+            58,
+            60,
+            62,
+            63
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stun_and_movement",
+      "entry": "CombatPhaseManager.Update() / PlayerController.FixedUpdate()",
+      "steps": [
+        "Update bỏ qua nếu chết; reset IsStunned=false nếu đang true.",
+        "Nếu playerHealth.isStun và TimeStun > 0: IsStunned=true; giảm TimeStun; hết giờ đặt isStun=false và TimeStun=1.5f; return.",
+        "FixedUpdate -> Move; đọc trực tiếp PlayerHealth.isDie/isStun và state Gathering để chặn di chuyển.",
+        "Move cập nhật IsGrounded, Horizontal, Vertical; lockTarget != null thì quay theo Transform mục tiêu, không gọi phương thức Boss.",
+        "Input Jump hoặc public Jump() đặt vận tốc Y và Trigger_Jump khi isGrounded."
+      ],
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+          "lines": [
+            21,
+            23,
+            24,
+            25,
+            27,
+            28,
+            29,
+            31,
+            32
+          ]
+        },
+        {
+          "file": "Assets/Scripts/ThachSanh/PlayerController.cs",
+          "lines": [
+            15,
+            25,
+            30,
+            32,
+            37,
+            38,
+            41,
+            53,
+            54,
+            84,
+            97,
+            100,
+            106,
+            111
+          ]
+        }
+      ]
+    },
+    {
+      "id": "heal",
+      "entry": "DivineRice.Use(GameObject target)",
+      "steps": [
+        "TryGetComponent<PlayerHealth> -> Heal(healAmount).",
+        "Heal chặn khi chết hoặc stun; clamp trên theo maxHealth và Trigger_Buff; không gọi SetHP nên UI không được refresh tại đây."
+      ],
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/DivineRice.cs",
+          "lines": [
+            10,
+            12,
+            14
+          ]
+        },
+        {
+          "file": "Assets/Scripts/ThachSanh/PlayerHealth.cs",
+          "lines": [
+            26,
+            28,
+            29,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inventory",
+      "entry": "Inventory.SelectItemBar / LootItem / AddItem / SubItem",
+      "steps": [
+        "SelectItemBar chặn khi tag AttackSkill; đổi lựa chọn hoặc bag.Swap; cập nhật UI và UpdateSkillBar.",
+        "UpdateSkillBar gọi Item.isWeapons(), dùng ItemName.Axe để chọn Weapons[0] hoặc Weapons[1], bật/tắt skill và vũ khí.",
+        "OnTriggerStay/Exit với tag Item cập nhật itemFocus và BtnLoot; LootItem chặn Gathering/AttackSkill, gọi AddItem và trigger IsGathering, ẩn vật phẩm.",
+        "CombatPhaseManager.PerformAttack đọc Inventory.isUseWeapons để tính sát thương và tăng combo."
+      ],
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/Inventory.cs",
+          "lines": [
+            38,
+            42,
+            43,
+            67,
+            88,
+            149,
+            151,
+            163,
+            181,
+            191,
+            199,
+            208,
+            210,
+            211,
+            213,
+            214,
+            218
+          ]
+        }
+      ]
+    },
+    {
+      "id": "survival_skill",
+      "entry": "CombatPhaseManager.UseSkillSurvival(int idx)",
+      "steps": [
+        "idx 0, 1, 2 đều chỉ phát trigger IsSpinAttack; ngoài khoảng không làm gì; chưa thấy nghiệp vụ khác."
+      ],
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+          "lines": [
+            95,
+            100,
+            103,
+            106
+          ]
+        }
+      ]
+    },
+    {
+      "id": "soul_meter",
+      "entry": "SoulMeter.Increase / Decrease",
+      "steps": [
+        "Clamp value trong 0..100; gọi OnValueChanged?.Invoke(value). Không thấy đăng ký subscriber hay gọi từ Boss/player trong các file đã đọc."
+      ],
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/SoulMeter.cs",
+          "lines": [
+            7,
+            8,
+            11,
+            13,
+            14,
+            18,
+            20,
+            21
+          ]
+        }
+      ]
+    }
+  ],
+  "animator": {
+    "status": "Literal parameters referenced by allowed C# only; controller definitions not inspected.",
+    "parameters": [
+      {
+        "name": "IsStunned",
+        "type": "Bool",
+        "usages": [
+          {
+            "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+            "line": 24,
+            "api": "GetBool",
+            "source": "if (animator.GetBool(\"IsStunned\")) animator.SetBool(\"IsStunned\", false);"
+          },
+          {
+            "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+            "line": 24,
+            "api": "SetBool",
+            "source": "if (animator.GetBool(\"IsStunned\")) animator.SetBool(\"IsStunned\", false);"
+          },
+          {
+            "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+            "line": 27,
+            "api": "GetBool",
+            "source": "if(!animator.GetBool(\"IsStunned\")) animator.SetBool(\"IsStunned\", true);"
+          },
+          {
+            "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+            "line": 27,
+            "api": "SetBool",
+            "source": "if(!animator.GetBool(\"IsStunned\")) animator.SetBool(\"IsStunned\", true);"
+          }
+        ]
+      },
+      {
+        "name": "AttackIndex",
+        "type": "Int",
+        "usages": [
+          {
+            "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+            "line": 71,
+            "api": "SetInteger",
+            "source": "animator.SetInteger(\"AttackIndex\", comboStep);"
+          }
+        ]
+      },
+      {
+        "name": "Attack",
+        "type": "Trigger",
+        "usages": [
+          {
+            "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+            "line": 72,
+            "api": "SetTrigger",
+            "source": "animator.SetTrigger(\"Attack\");"
+          }
+        ]
+      },
+      {
+        "name": "isAttackSkill1",
+        "type": "Trigger",
+        "usages": [
+          {
+            "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+            "line": 82,
+            "api": "SetTrigger",
+            "source": "animator.SetTrigger(\"isAttackSkill1\");"
+          }
+        ]
+      },
+      {
+        "name": "isAttackSkill2",
+        "type": "Trigger",
+        "usages": [
+          {
+            "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+            "line": 86,
+            "api": "SetTrigger",
+            "source": "animator.SetTrigger(\"isAttackSkill2\");"
+          }
+        ]
+      },
+      {
+        "name": "isAttackSkill3",
+        "type": "Trigger",
+        "usages": [
+          {
+            "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+            "line": 90,
+            "api": "SetTrigger",
+            "source": "animator.SetTrigger(\"isAttackSkill3\");"
+          }
+        ]
+      },
+      {
+        "name": "IsSpinAttack",
+        "type": "Trigger",
+        "usages": [
+          {
+            "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+            "line": 100,
+            "api": "SetTrigger",
+            "source": "animator.SetTrigger(\"IsSpinAttack\");"
+          },
+          {
+            "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+            "line": 103,
+            "api": "SetTrigger",
+            "source": "animator.SetTrigger(\"IsSpinAttack\");"
+          },
+          {
+            "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+            "line": 106,
+            "api": "SetTrigger",
+            "source": "animator.SetTrigger(\"IsSpinAttack\");"
+          }
+        ]
+      },
+      {
+        "name": "IsGathering",
+        "type": "Trigger",
+        "usages": [
+          {
+            "file": "Assets/Scripts/ThachSanh/Inventory.cs",
+            "line": 213,
+            "api": "SetTrigger",
+            "source": "animator.SetTrigger(\"IsGathering\");"
+          }
+        ]
+      },
+      {
+        "name": "IsGrounded",
+        "type": "Bool",
+        "usages": [
+          {
+            "file": "Assets/Scripts/ThachSanh/PlayerController.cs",
+            "line": 41,
+            "api": "SetBool",
+            "source": "animator.SetBool(\"IsGrounded\", isGrounded);"
+          }
+        ]
+      },
+      {
+        "name": "Horizontal",
+        "type": "Float",
+        "usages": [
+          {
+            "file": "Assets/Scripts/ThachSanh/PlayerController.cs",
+            "line": 53,
+            "api": "SetFloat",
+            "source": "animator.SetFloat(\"Horizontal\", h, 0.1f, Time.deltaTime);"
+          }
+        ]
+      },
+      {
+        "name": "Vertical",
+        "type": "Float",
+        "usages": [
+          {
+            "file": "Assets/Scripts/ThachSanh/PlayerController.cs",
+            "line": 54,
+            "api": "SetFloat",
+            "source": "animator.SetFloat(\"Vertical\", v, 0.1f, Time.deltaTime);"
+          }
+        ]
+      },
+      {
+        "name": "Trigger_Jump",
+        "type": "Trigger",
+        "usages": [
+          {
+            "file": "Assets/Scripts/ThachSanh/PlayerController.cs",
+            "line": 100,
+            "api": "SetTrigger",
+            "source": "animator.SetTrigger(\"Trigger_Jump\");"
+          },
+          {
+            "file": "Assets/Scripts/ThachSanh/PlayerController.cs",
+            "line": 111,
+            "api": "SetTrigger",
+            "source": "animator.SetTrigger(\"Trigger_Jump\");"
+          }
+        ]
+      },
+      {
+        "name": "Trigger_Buff",
+        "type": "Trigger",
+        "usages": [
+          {
+            "file": "Assets/Scripts/ThachSanh/PlayerHealth.cs",
+            "line": 30,
+            "api": "SetTrigger",
+            "source": "animator.SetTrigger(\"Trigger_Buff\");"
+          }
+        ]
+      },
+      {
+        "name": "Trigger_GetHit",
+        "type": "Trigger",
+        "usages": [
+          {
+            "file": "Assets/Scripts/ThachSanh/PlayerHealth.cs",
+            "line": 39,
+            "api": "SetTrigger",
+            "source": "animator.SetTrigger(\"Trigger_GetHit\");"
+          }
+        ]
+      },
+      {
+        "name": "Trigger_Death",
+        "type": "Trigger",
+        "usages": [
+          {
+            "file": "Assets/Scripts/ThachSanh/PlayerHealth.cs",
+            "line": 57,
+            "api": "SetTrigger",
+            "source": "animator.SetTrigger(\"Trigger_Death\");"
+          }
+        ]
+      }
+    ],
+    "parameter_counts": {
+      "Trigger": 10,
+      "Bool": 2,
+      "Float": 2,
+      "Int": 1
+    },
+    "state_checks": [
+      {
+        "file": "Assets/Scripts/ThachSanh/AxeAttack.cs",
+        "line": 12,
+        "layer": 0,
+        "kind": "state_tag",
+        "value": "AttackSkill"
+      },
+      {
+        "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+        "line": 43,
+        "layer": 1,
+        "kind": "state_tag",
+        "value": "Attack"
+      },
+      {
+        "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+        "line": 43,
+        "layer": 0,
+        "kind": "state_tag",
+        "value": "AttackSkill"
+      },
+      {
+        "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+        "line": 43,
+        "layer": 0,
+        "kind": "state_name",
+        "value": "Gathering"
+      },
+      {
+        "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+        "line": 76,
+        "layer": 0,
+        "kind": "state_tag",
+        "value": "AttackSkill"
+      },
+      {
+        "file": "Assets/Scripts/ThachSanh/Inventory.cs",
+        "line": 151,
+        "layer": 0,
+        "kind": "state_tag",
+        "value": "AttackSkill"
+      },
+      {
+        "file": "Assets/Scripts/ThachSanh/Inventory.cs",
+        "line": 210,
+        "layer": 0,
+        "kind": "state_name",
+        "value": "Gathering"
+      },
+      {
+        "file": "Assets/Scripts/ThachSanh/Inventory.cs",
+        "line": 210,
+        "layer": 0,
+        "kind": "state_tag",
+        "value": "AttackSkill"
+      },
+      {
+        "file": "Assets/Scripts/ThachSanh/PlayerController.cs",
+        "line": 38,
+        "layer": 0,
+        "kind": "state_name",
+        "value": "Gathering"
+      }
+    ],
+    "notes": [
+      "Tên phân biệt hoa thường được giữ nguyên.",
+      "IsGathering là Trigger theo SetTrigger dù bắt đầu bằng Is.",
+      "AttackIndex là Int, được đưa vào để không bỏ sót tham số ngoài Trigger/Bool/Float.",
+      "Attack xuất hiện với hai vai trò: tham số Trigger và tag state ở layer 1."
+    ]
+  },
+  "animation_events": {
+    "status": "not_confirmable_from_allowed_cs",
+    "explicit_animation_event_creation_or_registration": [],
+    "confirmed_clip_bindings": [],
+    "explicitly_documented_receivers_in_code": [],
+    "explanation": "Không thấy AnimationEvent, AddEvent, khai báo/ghi chú receiver hoặc thao tác gắn event trong 7 file. Animation Events thường được gắn ở clip; không đọc clip theo giới hạn. Mảng rỗng không khẳng định dự án không dùng Animation Events.",
+    "public_entry_points": [
+      {
+        "class": "CombatPhaseManager",
+        "methods": [
+          {
+            "signature": "void PerformAttack()",
+            "line": 41
+          },
+          {
+            "signature": "void UseSkillAttack(int idx)",
+            "line": 74
+          },
+          {
+            "signature": "void UseSkillSurvival(int idx)",
+            "line": 95
+          }
+        ]
+      },
+      {
+        "class": "DivineRice",
+        "methods": [
+          {
+            "signature": "void Use(GameObject target)",
+            "line": 10
+          }
+        ]
+      },
+      {
+        "class": "Inventory",
+        "methods": [
+          {
+            "signature": "bool AddItem(Item it)",
+            "line": 67
+          },
+          {
+            "signature": "void SubItem(Item it)",
+            "line": 88
+          },
+          {
+            "signature": "void ChangeStatusBag(GameObject btn)",
+            "line": 107
+          },
+          {
+            "signature": "void LoadHandBar(int sz)",
+            "line": 115
+          },
+          {
+            "signature": "void LoadBag(bool isOpen)",
+            "line": 127
+          },
+          {
+            "signature": "void SelectItemBar(int index)",
+            "line": 149
+          },
+          {
+            "signature": "Item GetItem(Item it)",
+            "line": 183
+          },
+          {
+            "signature": "int GetIndexItem(Item it)",
+            "line": 187
+          },
+          {
+            "signature": "void LootItem()",
+            "line": 208
+          },
+          {
+            "signature": "bool isUseWeapons()",
+            "line": 218
+          }
+        ]
+      },
+      {
+        "class": "PlayerController",
+        "methods": [
+          {
+            "signature": "void Jump()",
+            "line": 106
+          }
+        ]
+      },
+      {
+        "class": "PlayerHealth",
+        "methods": [
+          {
+            "signature": "void Heal(float amount)",
+            "line": 26
+          },
+          {
+            "signature": "void TakeDamage(float dmg)",
+            "line": 34
+          },
+          {
+            "signature": "void SetHP(float value)",
+            "line": 43
+          }
+        ]
+      },
+      {
+        "class": "SoulMeter",
+        "methods": [
+          {
+            "signature": "void Increase(float amount)",
+            "line": 11
+          },
+          {
+            "signature": "void Decrease(float amount)",
+            "line": 18
+          }
+        ]
+      }
+    ],
+    "entry_point_note": "Đây chỉ là public methods có thể được gọi từ ngoài; không có bằng chứng phương thức nào đã gắn vào animation hoặc UI.",
+    "unity_callbacks_not_animation_events": [
+      "Start",
+      "Update",
+      "FixedUpdate",
+      "OnTriggerEnter",
+      "OnTriggerStay",
+      "OnTriggerExit",
+      "OnDrawGizmosSelected"
+    ],
+    "csharp_events_not_animation_events": [
+      {
+        "name": "SoulMeter.OnValueChanged",
+        "type": "Action<float>",
+        "evidence": [
+          {
+            "file": "Assets/Scripts/ThachSanh/SoulMeter.cs",
+            "lines": [
+              8,
+              14,
+              21
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "observations": [
+    {
+      "finding": "CombatPhaseManager <-> AxeAttack có tham chiếu cụ thể hai chiều; damage phụ thuộc trực tiếp EnemyHealth/BossLizard và ghi trường isStun.",
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+          "lines": [
+            11,
+            51,
+            56,
+            59,
+            93
+          ]
+        },
+        {
+          "file": "Assets/Scripts/ThachSanh/AxeAttack.cs",
+          "lines": [
+            9,
+            12,
+            21,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "finding": "PlayerHealth gắn cứng logic máu với UI, Animator và scene Game; Heal không refresh UI qua SetHP.",
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/PlayerHealth.cs",
+          "lines": [
+            8,
+            26,
+            29,
+            30,
+            43,
+            57,
+            63
+          ]
+        }
+      ]
+    },
+    {
+      "finding": "PerformAttack/UseSkillAttack/UseSkillSurvival không tự kiểm tra isDie/isStun; Update có chặn nhưng caller ngoài vẫn gọi public methods được.",
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+          "lines": [
+            23,
+            25,
+            41,
+            43,
+            74,
+            76,
+            95
+          ]
+        }
+      ]
+    },
+    {
+      "finding": "Normal attack kiểm tra BossLizard trên parent trực tiếp; skill dùng GetComponentInParent. parent/null/component không được guard đầy đủ; kết quả phụ thuộc hierarchy chưa kiểm tra.",
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+          "lines": [
+            56
+          ]
+        },
+        {
+          "file": "Assets/Scripts/ThachSanh/AxeAttack.cs",
+          "lines": [
+            15,
+            16,
+            21,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "finding": "Physics.OverlapSphere tạo mảng cho mỗi PerformAttack; chưa có hit dedup theo entity/attack. Đây là điểm cần xem khi áp dụng ngân sách GC và hit policy.",
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+          "lines": [
+            46,
+            49
+          ]
+        },
+        {
+          "file": "Assets/Scripts/ThachSanh/AxeAttack.cs",
+          "lines": [
+            10,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "finding": "Inventory.LoadBag lấy sprite từ bag[dataIndex] nhưng quantity từ bag[i].",
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/Inventory.cs",
+          "lines": [
+            131,
+            138,
+            139
+          ]
+        }
+      ]
+    },
+    {
+      "finding": "btnSkill3 được khai báo nhưng không sử dụng ở file; không thấy [SerializeField] trong các file đã đọc.",
+      "evidence": [
+        {
+          "file": "Assets/Scripts/ThachSanh/CombatPhaseManager.cs",
+          "lines": [
+            10
+          ]
+        }
+      ]
+    }
+  ],
+  "proposed_core": {
+    "status": "proposal_only; không tạo hoặc sửa bất kỳ file .cs nào",
+    "root": "Assets/Scripts/Core/",
+    "namespace": "ThachSanh.Core",
+    "folders": {
+      "Identity/": [
+        "EntityId.cs"
+      ],
+      "Events/": [
+        "IEventBus.cs",
+        "EventBus.cs"
+      ],
+      "Contracts/Health/": [
+        "IHealth.cs",
+        "IHealable.cs",
+        "HealthSnapshot.cs"
+      ],
+      "Contracts/Damage/": [
+        "IDamageable.cs",
+        "DamageRequest.cs",
+        "DamageResult.cs"
+      ],
+      "Contracts/Status/": [
+        "IStatusReceiver.cs",
+        "IStatusView.cs",
+        "StatusId.cs",
+        "StatusRequest.cs",
+        "StatusSnapshot.cs"
+      ],
+      "Contracts/Events/": [
+        "HealthChanged.cs",
+        "DamageApplied.cs",
+        "EntityDied.cs",
+        "StatusChanged.cs"
+      ],
+      "Composition/": [
+        "CoreServices.cs"
+      ]
+    },
+    "contracts": [
+      {
+        "name": "EntityId",
+        "shape": "readonly struct; int Value; 0 = Unknown",
+        "purpose": "Định danh nguồn/đích; không mang tham chiếu PlayerHealth, BossLizard hoặc UI."
+      },
+      {
+        "name": "IHealth",
+        "members": [
+          "EntityId Id { get; }",
+          "HealthSnapshot Health { get; }"
+        ],
+        "purpose": "Đọc máu; snapshot gồm Current, Max, IsDead."
+      },
+      {
+        "name": "IHealable",
+        "members": [
+          "float Heal(float amount)"
+        ],
+        "purpose": "Trả lượng máu thực hồi, 0 nếu bị từ chối; quy tắc chết/stun do gameplay quyết định."
+      },
+      {
+        "name": "IDamageable",
+        "members": [
+          "DamageResult ApplyDamage(in DamageRequest request)"
+        ],
+        "purpose": "Đích nhận sát thương qua interface, không phân nhánh EnemyHealth/BossLizard."
+      },
+      {
+        "name": "DamageRequest",
+        "shape": "readonly struct: EntityId Source, EntityId Target, float Amount, int AttackId"
+      },
+      {
+        "name": "DamageResult",
+        "shape": "readonly struct: bool Accepted, float AppliedAmount, bool Killed"
+      },
+      {
+        "name": "IStatusReceiver",
+        "members": [
+          "bool TryApply(in StatusRequest request)"
+        ],
+        "purpose": "Yêu cầu trạng thái qua hợp đồng; bỏ thao tác ghi trực tiếp target.isStun."
+      },
+      {
+        "name": "IStatusView",
+        "members": [
+          "StatusSnapshot GetStatus(StatusId id)"
+        ],
+        "purpose": "Đọc Active và RemainingSeconds, không tự sửa timer của phân hệ khác."
+      },
+      {
+        "name": "StatusId",
+        "shape": "enum, initial value Stun; trạng thái chết suy ra từ health, tránh hai nơi quản lý chết"
+      },
+      {
+        "name": "StatusRequest",
+        "shape": "readonly struct: EntityId Source, EntityId Target, StatusId Status, float DurationSeconds"
+      },
+      {
+        "name": "IEventBus",
+        "members": [
+          "void Subscribe<T>(System.Action<T> handler) where T : struct",
+          "void Unsubscribe<T>(System.Action<T> handler) where T : struct",
+          "void Publish<T>(in T message) where T : struct"
+        ],
+        "purpose": "Thông báo kết quả đã xảy ra, định kiểu mạnh; callback đồng bộ trên Unity main thread."
+      }
+    ],
+    "events": [
+      {
+        "name": "HealthChanged",
+        "payload": "EntityId Target; float Previous; float Current; float Max",
+        "publisher": "Owner của health sau khi thay đổi đã commit",
+        "subscribers": [
+          "UI máu",
+          "presentation adapter"
+        ]
+      },
+      {
+        "name": "DamageApplied",
+        "payload": "EntityId Source; EntityId Target; float AppliedAmount; int AttackId",
+        "publisher": "Owner của health khi sát thương được chấp nhận",
+        "subscribers": [
+          "Audio",
+          "VFX",
+          "analytics adapter"
+        ]
+      },
+      {
+        "name": "EntityDied",
+        "payload": "EntityId Target; EntityId Killer",
+        "publisher": "Owner của health đúng một lần ở chuyển trạng thái sống -> chết",
+        "subscribers": [
+          "Điều phối vòng chơi/restart",
+          "UI",
+          "Audio"
+        ]
+      },
+      {
+        "name": "StatusChanged",
+        "payload": "EntityId Target; StatusId Status; bool Active; float RemainingSeconds",
+        "publisher": "Owner của status khi áp dụng, làm mới hoặc hết hạn; không phát mỗi frame",
+        "subscribers": [
+          "Animation adapter",
+          "VFX",
+          "UI trạng thái"
+        ]
+      }
+    ],
+    "dependency_rules": [
+      "Core chỉ chứa hợp đồng và cơ chế dùng chung; không tham chiếu gameplay, BossLizard, PlayerHealth, Inventory, UnityEngine.UI, TMPro hoặc SDK.",
+      "Gameplay, UI, Audio, SDK adapter đều phụ thuộc Core; không phụ thuộc cụ thể lẫn nhau hoặc tạo vòng tham chiếu.",
+      "Damage/heal/status là lệnh gọi qua interface; event chỉ thông báo kết quả sau khi chủ sở hữu cập nhật dữ liệu.",
+      "Composition root bên ngoài Core tạo bus và inject interface; CoreServices chỉ là container theo lifetime scene, không phải global mutable singleton.",
+      "Adapter cho PlayerHealth/BossLizard và quy tắc combo, stun, kháng hiệu ứng đặt ở gameplay ngoài Core; chưa xác định vị trí Boss adapter khi nguồn Boss còn thiếu.",
+      "Animator hash, state/tag, Unity physics và Animation Event receiver đặt tại adapter/presentation của nhân vật; Core không biết tên trigger.",
+      "Health owner cập nhật máu và phát event; UI subscriber cập nhật hình; restart scene thuộc điều phối vòng chơi.",
+      "Status owner tự cập nhật thời gian; movement/combat đọc interface hoặc nhận thông báo, không sửa timer của health."
+    ],
+    "lifetime_and_allocation_rules": [
+      "Subscribe trong OnEnable, Unsubscribe cùng delegate đã cache trong OnDisable; dọn scope scene khi unload.",
+      "Value-type payload; không boxing, reflection, LINQ, closure hoặc tạo collection/delegate trong Update/FixedUpdate/Publish.",
+      "Kênh generic định kiểu mạnh được khởi tạo/prewarm trước vòng lặp; publish không sao chép danh sách hoặc dùng GetInvocationList; quản lý thay đổi subscriber ngoài lúc dispatch.",
+      "Nếu có lookup/collider buffer, cấp phát và cache khi khởi tạo; NonAlloc query cần phát hiện buffer đầy và chính sách xử lý, không âm thầm bỏ hit.",
+      "Zero GC trong frame loop là mục tiêu thiết kế cần đo bằng Profiler sau triển khai; baseline tĩnh này không chứng minh được."
+    ],
+    "future_extensions": "Object Pool / state machine dùng chung chỉ bổ sung khi có consumer cụ thể; không đưa AI, combo hoặc nghiệp vụ màn chơi vào Core.",
+    "migration_steps": [
+      "Chốt hợp đồng và chính sách health/status trước khi giao việc; bổ sung baseline Boss khi có nguồn trong phạm vi được phép.",
+      "Tạo triển khai Core trong lượt được phép viết code; thêm adapter mà không đổi tên tham số Animator hiện hữu.",
+      "Chuyển từng đường damage/heal/status sang interface; chuyển UI/audio/restart sang subscriber.",
+      "Kiểm tra hành vi combo và hit timing giữ nguyên, lifecycle không nhân subscriber, và đo GC khi chạy."
+    ]
+  },
+  "verification": {
+    "mode": "static_analysis",
+    "existing_cs_modified_by_task": false,
+    "source_sha256_rechecked_before_write": true,
+    "runtime_or_compilation_tests": "not_run; JSON documentation only"
+  }
+}
